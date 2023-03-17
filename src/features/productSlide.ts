@@ -5,7 +5,7 @@ import axios from "axios";
 
 const api = "https://fakestoreapi.com/products"; 
 
-interface Product {
+export interface Product {
     id: number,
     title: string,
     price: number,
@@ -20,7 +20,8 @@ interface Product {
 }
 
 const initialState = {
-    products: [] as Product[]
+    products: [] as Product[],
+    cart: [] as Product[],
 }
 
 export const fetchProducts = createAsyncThunk(
@@ -35,12 +36,16 @@ export const fetchProducts = createAsyncThunk(
 const productsSlice = createSlice({
     name: 'products',
     initialState,
-    reducers: {},
+    reducers: {
+        addToCart: (state, action) => {
+            state.cart= [...state.cart, action.payload]
+        }
+    },
     extraReducers(builder) {
         builder.addCase(fetchProducts.fulfilled, (state, action: PayloadAction<Product[]>)=> {
             state.products = action.payload
         })
     }
 })
-
+export const {addToCart} = productsSlice.actions
 export default productsSlice.reducer

@@ -9,12 +9,10 @@ function App() {
   return (
     <div className="App">
       <StoreNavBar />
-      <BrowserRouter>
         <Routes>
           <Route path="/" element={<List/>}/>
           <Route path="/cart" element={<Cart/>}/>
         </Routes>
-      </BrowserRouter>
     </div>
   );
 }
